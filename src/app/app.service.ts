@@ -29,6 +29,12 @@ export class AppService {
     );
   }
 
+  getFileLists(transFile: TransFile): Observable<string[]> {
+    return this.http.post<string[]>(
+      environment.apiUrl + '/getFileLists', transFile
+    );
+  }
+
 
 
 }
