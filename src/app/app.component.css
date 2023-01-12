@@ -1,0 +1,6 @@
+.fileContentBlock {
+    height: fit-content;
+    border: solid 0.5px red;
+    border-radius: 3px;
+    padding: 10px;
+}
