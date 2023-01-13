@@ -83,7 +83,6 @@ export class AppComponent implements OnInit {
       confirmButtonText: 'Confirm',
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log(result)
         if (result.value) {
           this.addToReplaceTargets(result.value);
         } else {

@@ -3,4 +3,25 @@
     border: solid 0.5px red;
     border-radius: 3px;
     padding: 10px;
+    overflow: scroll;
+    white-space: pre-wrap;
+        word-break: keep-all;
+}
+
+.stickyReplaceTargets {
+    z-index: 999;
+    position: sticky;
+    top: 10%;
+    left: 0;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.stickyRefactorButton {
+    z-index: 999;
+    position: sticky;
+    top: 10%;
+    border-radius: 5px;
+margin-left: 10%;
+    width: 60%;
 }
