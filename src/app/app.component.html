@@ -1,103 +1,127 @@
 <form [formGroup]="this.formGroup">
-<div class="container-fluid">
-    <div class="row">
-        <div class="col">
-            <hr>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-8">
-            <div class="row">
-                <div class="col">
-                    <input list="pathList" type="text" class="form-control" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-sm" placeholder="檔案路徑" formControlName="path" [readOnly]="this.transResult">
-                    <br>
-                    <input list="pathList" type="text" class="form-control" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-sm" placeholder="locale路徑" formControlName="defaultLocalePath" [readOnly]="this.transResult">
-                    <br>
-                    <input list="pathList" type="text" class="form-control" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-sm" placeholder="localeEn路徑" formControlName="enLocalePath" [readOnly]="this.transResult">
-                    <br>
-                    <button *ngIf="!this.transResult && this.replaceTargets.length && formGroup.valid" type="button" class="btn btn-info" [disabled]="!formGroup.valid" (click)="trans()">Refactor</button>
-                    <br>
-                    <datalist id='pathList'>
-                        <div *ngIf="this.pathList.length">
-                            <div *ngFor="let path of this.pathList">
-                                <option value="{{path}}"></option>
-                              </div>
-                        </div>
-                    </datalist>
-                </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <hr>
             </div>
         </div>
-        <div class="col-3">
-            <div class="row">
-                <div class="col">
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                        placeholder="編碼" formControlName="charset" [readOnly]="this.transResult">
+        <div class="row">
+            <div class="col-8">
+                <div class="row">
+                    <div class="col">
+                        <input list="pathList" type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" placeholder="檔案路徑" formControlName="path"
+                            [readOnly]="this.transResult">
                         <br>
-                        <button *ngIf="!this.transResult && this.content" type="button" class="btn btn-danger" [disabled]="!this.content" (click)="addReplceTarget()">add replce target</button>
+                        <input list="pathList" type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" placeholder="locale路徑"
+                            formControlName="defaultLocalePath" [readOnly]="this.transResult">
+                        <br>
+                        <input list="pathList" type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" placeholder="localeEn路徑"
+                            formControlName="enLocalePath" [readOnly]="this.transResult">
+                        <br>
+                        <datalist id='pathList'>
+                            <div *ngIf="this.pathList.length">
+                                <div *ngFor="let path of this.pathList">
+                                    <option value="{{path}}"></option>
+                                </div>
+                            </div>
+                        </datalist>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-sm" placeholder="編碼" formControlName="charset"
+                            [readOnly]="this.transResult">
+                        <br>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <hr>
-        </div>
-    </div>
-    <div class="row" *ngIf="!this.transResult">
-        <div class="col-7">
-            <div class="row">
-                <div class="col">
-                    <pre class="fileContentBlock" *ngIf="this.content">{{this.content}}</pre>
-                </div>
+        <div class="row">
+            <div class="col">
+                <hr>
             </div>
         </div>
-        <div class="col-5">
-            <div class="row">
-                <div class="col">
-                    <strong *ngIf="!this.transResult && this.content">Replace Targets :</strong>
-                    <hr *ngIf="!this.transResult && this.content">
-                <div *ngFor="let replaceTarget of replaceTargets;let idx = index;">
-                    <div class="row">
-                        <div class="col-9">
-                            <pre> key:{{replaceTarget.key}}  target:{{replaceTarget.targetStr}} </pre>
-                        </div>
-                        <div class="col-3">
-                            <button type="button" class="btn btn-secondary" (click)="removeThisReplaceTarget(idx)">remove</button>
+
+        <div class="row stickyRefactorButton" *ngIf="!this.transResult && this.replaceTargets.length && formGroup.valid">
+            <div class="col">
+                <button type="button"
+                    class="btn btn-info" [disabled]="!formGroup.valid" (click)="trans()">Refactor</button>
+            </div>
+            <div class="col">
+                <br>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="!this.transResult">
+            <div class="col-12">
+                <br>
+            </div>
+            <div class="col-8">
+                <div class="row">
+                    <div class="col">
+                        <pre class="fileContentBlock" *ngIf="this.content">{{this.content}}</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="row stickyReplaceTargets">
+                    <div class="col">
+                        <button *ngIf="!this.transResult && this.content" type="button" class="btn btn-danger"
+                            [disabled]="!this.content" (click)="addReplceTarget()">add replce target</button>
+                        <hr>
+                        <strong *ngIf="!this.transResult && this.content">Replace Targets :</strong>
+                        <hr *ngIf="!this.transResult && this.content">
+                        <div *ngFor="let replaceTarget of replaceTargets;let idx = index;">
+                            <div class="row">
+                                <div class="col-9">
+                                    <pre> key:{{replaceTarget.key}}  target:{{replaceTarget.targetStr}} </pre>
+                                </div>
+                                <div class="col-3">
+                                    <button type="button" class="btn btn-secondary"
+                                        (click)="removeThisReplaceTarget(idx)">remove</button>
+                                </div>
+                            </div>
+                            <hr>
                         </div>
                     </div>
-                    <hr>
-                </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row" *ngIf="this.transResult">
-        <div class="col-2">
-            <button type="button" class="btn btn-warning" [disabled]="!formGroup.valid" (click)="commit()">Commit</button>
+        <div class="row stickyRefactorButton" *ngIf="this.transResult">
+            <div class="col-2">
+                <button type="button" class="btn btn-warning" [disabled]="!formGroup.valid"
+                    (click)="commit()">Commit</button>
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-secondary" [disabled]="!formGroup.valid"
+                    (click)="cancel()">Cancel</button>
+            </div>
         </div>
-        <div class="col-2">
-            <button type="button" class="btn btn-light" [disabled]="!formGroup.valid" (click)="cancel()">Cancel</button>
-        </div>
-        <div class="col-12">
-            <br>
-        </div>
-        <div class="col-6">
-            <strong>檔案內容</strong>
-            <pre class="fileContentBlock">{{this.transResult.fileContent}}</pre>
-        </div>
-        <div class="col-3">
-            <strong>Locale_Defalut</strong>
-            <pre class="fileContentBlock">{{this.transResult.defaultLocalePathContent}}</pre>
-        </div>
-        <div class="col-3">
-            <strong>Locale_EN</strong>
-            <pre class="fileContentBlock">{{this.transResult.enLocalePathContent}}</pre>
+
+        <div class="row" *ngIf="this.transResult">
+            <div class="col-12">
+                <br>
+            </div>
+            <div class="col-6">
+                <strong>檔案內容</strong>
+                <pre class="fileContentBlock">{{this.transResult.fileContent}}</pre>
+            </div>
+            <div class="col-3">
+                <strong>Locale_Defalut</strong>
+                <pre class="fileContentBlock">{{this.transResult.defaultLocalePathContent}}</pre>
+            </div>
+            <div class="col-3">
+                <strong>Locale_EN</strong>
+                <pre class="fileContentBlock">{{this.transResult.enLocalePathContent}}</pre>
+            </div>
         </div>
     </div>
-</div>
 
 </form>
